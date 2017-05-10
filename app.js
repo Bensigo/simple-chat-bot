@@ -5,7 +5,7 @@ const express = require('express'),
 
 
 //creating the port 
-const port = process.env.port || 5050
+const port = process.env.port ||4000
 
 //instancecating app
 const app = express();
@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 //server index page 
 app.get('/', (req,res)=>{
-    res.send(`<h4> app Deployed</h4>`)
+    res.send(`<h4> app Deployed!</h4>`);
 })
 
 
@@ -25,10 +25,10 @@ app.get('/', (req,res)=>{
 //facebook verifycation
 app.get('/webhook',(req,res)=>{
     if(req.query['hub.verify_token'] === 'my_token'){
-        console.log('verification confirmed')
+        console.log('verified webhook')
         res.status(200).send(req.query['hub.challenge']);
     }else{
-        console.log('verification failed ');
+        console.log('verification failed , token does not match ');
         res.sendStatus(403);
     }
 } )
@@ -38,5 +38,5 @@ app.get('/webhook',(req,res)=>{
 
 //starting the server 
 app.listen(port , ()=>{
-    console.log('😀 😀 🌍 starting server on http://localhost:port');
+    console.log(`😀 😀 🌍 starting server on http://localhost:${port}`);
 })
